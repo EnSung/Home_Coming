@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormHole : MonoBehaviour
+public class Trap : MonoBehaviour
 {
     public Vector2 hitBox;
 
     bool isAttack;
-    public GameObject hand;
+    public Sprite active;
     public LayerMask playerMask;
 
 
@@ -23,10 +23,10 @@ public class WormHole : MonoBehaviour
             //АјАн
             Debug.Log("Attack");
             Collider2D col = Physics2D.OverlapBox(transform.position,hitBox,0,playerMask);
-            hand.SetActive(true);
+            GetComponent<SpriteRenderer>().sprite = active;
             if(col != null)
             {
-                IngameManager.Instance.player.OnDamaged(1);
+                IngameManager.Instance.player.OnDamaged(2);
                 Debug.Log("hit!!");
             }
             

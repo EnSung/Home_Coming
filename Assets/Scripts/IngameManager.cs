@@ -59,7 +59,7 @@ public class IngameManager : MonoBehaviour
         bool i = false;
         while (true)
         {
-            float randTime = Random.Range(8f, 11f);
+            float randTime = Random.Range(13f, 18f);
             yield return null;
             if (!i)
             {
