@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
     public Light2D light;
 
     Rigidbody2D rb;
-    Vector2 move;
-
     Vector2 Pre_Pos;
     void Start()
     {

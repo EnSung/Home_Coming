@@ -14,17 +14,30 @@ public class IngameManager : MonoBehaviour
     public Player player;
     public Queue<Transform> playerTrackPos = new Queue<Transform>();
 
-    void Start()
+    public RhythmGameSystem RhythmGame;
+
+
+    private void Awake()
     {
         if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
     }
+    void Start()
+    {
+      
+
+    }
 
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            RhythmGame.PlayRhythmGame();
+        }
+
+
     }
 }

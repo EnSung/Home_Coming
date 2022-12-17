@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -10,10 +11,10 @@ public enum NoteType
 }
 public class RhythmGameSystem : MonoBehaviour
 {
-    Queue<Note> LeftArrowQueue = new Queue<Note>(); // 임시
-    Queue<Note> UpArrowQueue = new Queue<Note>(); // 임시
-    Queue<Note> DownArrowQueue = new Queue<Note>(); // 임시
-    Queue<Note> RightArrowQueue = new Queue<Note>(); // 임시
+    public Queue<Note> LeftArrowQueue = new Queue<Note>(); // 임시
+    public Queue<Note> UpArrowQueue = new Queue<Note>(); // 임시
+    public Queue<Note> DownArrowQueue = new Queue<Note>(); // 임시
+    public Queue<Note> RightArrowQueue = new Queue<Note>(); // 임시
 
     public Transform[] noteSpawnPos; // [L, R, U, D]
 
@@ -21,14 +22,12 @@ public class RhythmGameSystem : MonoBehaviour
     void Start()
     {
 
-        CreateNote(NoteType.Left, 2);
-        CreateNote(NoteType.Up, 3);
-        CreateNote(NoteType.Down, 6);
-        CreateNote(NoteType.Right, 7);
+
     }
 
     void Update()
     {
+        if(LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0) gameObject.SetActive(false);
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             JudgeNote(NoteType.Left);
@@ -65,22 +64,29 @@ public class RhythmGameSystem : MonoBehaviour
             case NoteType.Left:
                 LeftArrowQueue.Enqueue(note);
                 note.gameObject.transform.position = new Vector2(noteSpawnPos[0].position.x, note.transform.position.y);
+                note.type = NoteType.Left;
                 break;
             case NoteType.Up:
                 note.gameObject.transform.position = new Vector2(noteSpawnPos[1].position.x, note.transform.position.y);
                 UpArrowQueue.Enqueue(note);
+                note.type= NoteType.Up;
                 break;
             case NoteType.Down:
                 note.gameObject.transform.position = new Vector2(noteSpawnPos[2].position.x, note.transform.position.y);
                 DownArrowQueue.Enqueue(note);
+                note.type = NoteType.Down;
                 break;
             case NoteType.Right:
                 RightArrowQueue.Enqueue(note);
                 note.gameObject.transform.position = new Vector2(noteSpawnPos[3].position.x, note.transform.position.y);
+                note.type = NoteType.Right;
                 break;
             default:
                 break;
         }
+
+
+        note.transform.parent = IngameManager.Instance.player.transform;
     }
 
 
@@ -166,5 +172,15 @@ public class RhythmGameSystem : MonoBehaviour
 
             Destroy(note.gameObject);
         }
+    }
+
+
+    public void PlayRhythmGame()
+    {
+        gameObject.SetActive(true);
+        CreateNote(NoteType.Left, 2);
+        CreateNote(NoteType.Up, 3);
+        CreateNote(NoteType.Down, 6);
+        CreateNote(NoteType.Right, 7);
     }
 }
