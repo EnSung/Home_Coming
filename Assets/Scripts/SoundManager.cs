@@ -20,13 +20,13 @@ public class SoundManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            //SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
             Destroy(gameObject);
     }
 
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    /*private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         for (int i = 0; i < bgList.Length; i++)
         {
@@ -34,9 +34,9 @@ public class SoundManager : MonoBehaviour
             if (arg0.name == bgList[i].name)
                 BgSoundPlay(bgList[i]);
         }
-    }
+    }*/
 
-    public void SFXPlay(string sfxName, AudioClip clip)
+    public GameObject SFXPlay(string sfxName, AudioClip clip)
     {
         GameObject go = new GameObject($"{sfxName} Sound");
         AudioSource audioSource = go.AddComponent<AudioSource>();
@@ -45,6 +45,8 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
 
         Destroy(go, clip.length);
+
+        return go;
     }
 
 

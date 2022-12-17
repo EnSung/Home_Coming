@@ -7,7 +7,7 @@ using UnityEngine;
 
 public enum NoteType
 {
-    Left,  Up, Down, Right
+    Left = 0, Up, Down, Right
 }
 public class RhythmGameSystem : MonoBehaviour
 {
@@ -19,6 +19,10 @@ public class RhythmGameSystem : MonoBehaviour
     public Transform[] noteSpawnPos; // [L, R, U, D]
 
     public GameObject notePrefab;
+
+
+    public AudioClip[] SingClip;
+    public AudioClip noteSound;
     void Start()
     {
 
@@ -27,7 +31,7 @@ public class RhythmGameSystem : MonoBehaviour
 
     void Update()
     {
-        if(LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0) gameObject.SetActive(false);
+        if (LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0) gameObject.SetActive(false);
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             JudgeNote(NoteType.Left);
@@ -69,7 +73,7 @@ public class RhythmGameSystem : MonoBehaviour
             case NoteType.Up:
                 note.gameObject.transform.position = new Vector2(noteSpawnPos[1].position.x, note.transform.position.y);
                 UpArrowQueue.Enqueue(note);
-                note.type= NoteType.Up;
+                note.type = NoteType.Up;
                 break;
             case NoteType.Down:
                 note.gameObject.transform.position = new Vector2(noteSpawnPos[2].position.x, note.transform.position.y);
@@ -105,7 +109,7 @@ public class RhythmGameSystem : MonoBehaviour
             case NoteType.Left:
                 note = LeftArrowQueue.Peek();
                 break;
-            
+
             case NoteType.Up:
                 note = UpArrowQueue.Peek();
                 break;
@@ -132,7 +136,7 @@ public class RhythmGameSystem : MonoBehaviour
                 case NoteType.Left:
                     note = LeftArrowQueue.Dequeue();
                     break;
-                
+
                 case NoteType.Up:
                     note = UpArrowQueue.Dequeue();
                     break;
@@ -146,9 +150,10 @@ public class RhythmGameSystem : MonoBehaviour
                     break;
             }
 
+            SoundManager.Instance.SFXPlay("noteS", noteSound);
             Destroy(note.gameObject);
         }
-        else if (judgeStandardTime <= 0.02f) // 노멀
+        else if (judgeStandardTime <= 0.1f) // 노멀
         {
             Debug.Log("normal");
             switch (type)
@@ -169,6 +174,7 @@ public class RhythmGameSystem : MonoBehaviour
                 default:
                     break;
             }
+            SoundManager.Instance.SFXPlay("noteS", noteSound);
 
             Destroy(note.gameObject);
         }
@@ -177,10 +183,65 @@ public class RhythmGameSystem : MonoBehaviour
 
     public void PlayRhythmGame()
     {
+        LeftArrowQueue.Clear();
+        UpArrowQueue.Clear();
+        DownArrowQueue.Clear();
+        RightArrowQueue.Clear();
         gameObject.SetActive(true);
-        CreateNote(NoteType.Left, 2);
-        CreateNote(NoteType.Up, 3);
-        CreateNote(NoteType.Down, 6);
-        CreateNote(NoteType.Right, 7);
+        StartCoroutine(RhythmGameCor());
+    }
+
+
+    IEnumerator RhythmGameCor()
+    {
+        int i = 1;
+        int rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + .4f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + .8f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 1f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 1.4f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 1.6f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 1.8f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 2f);
+        //
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 2.4f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 2.8f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 3f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 3.4f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 3.6f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 3.8f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 4f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 4.4f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 4.8f);
+        rand = Random.Range(0, 4);
+        //CreateNote((NoteType)rand, i + 5f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 5.4f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 5.6f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 5.8f);
+        rand = Random.Range(0, 4);
+        CreateNote((NoteType)rand, i + 6f);
+
+        yield return new WaitForSeconds(1);
+        var Sound = SoundManager.Instance.SFXPlay("rhythmgameClip", SingClip[0]);
+
+
     }
 }

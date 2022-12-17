@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class Note : MonoBehaviour
 {
-
-    UnityEvent MissEvent;
     public double hitTime;
     public NoteType type;
 
@@ -19,11 +17,10 @@ public class Note : MonoBehaviour
     {
         float calcTime = (float)hitTime - Time.time;
         transform.position = new Vector2(transform.position.x,
-            (calcTime) * 20 - 4.41f/*판정 UI 포지션*/);
+            (calcTime) * 10 - 4.41f/*판정 UI 포지션*/);
 
-        if (calcTime <= -0.5f/*마지막 판정 바로 다음으로 시간 설정*/)
+        if (calcTime < -.17f/*마지막 판정 바로 다음으로 시간 설정*/)
         {
-            MissEvent?.Invoke();
             switch (type)
             {
                 case NoteType.Left:
@@ -41,7 +38,10 @@ public class Note : MonoBehaviour
                 default:
                     break;
             }
+
+            IngameManager.Instance.player.OnDamaged(1);
             Destroy(gameObject);
+
 
             Debug.Log("Miss");
             
