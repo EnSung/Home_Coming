@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8203347113643889938}
   - component: {fileID: 8203347113643889937}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,8 +99,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 10
+  m_PointLightInnerRadius: 5
+  m_PointLightOuterRadius: 9.8
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 8203347114636828805}
   - component: {fileID: 8203347114636828804}
   - component: {fileID: 8203347114636828803}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  applySpeed: 5
   light: {fileID: 0}
+  itemMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!61 &8203347114636828804
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -271,6 +275,10 @@ PrefabInstance:
     - target: {fileID: 7747196265461205104, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
       propertyPath: m_Name
       value: RhythmGameSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747196265461205104, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7747196265461205104, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
       propertyPath: m_IsActive
@@ -340,6 +348,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7747196265693369679, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747196266067678053, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7747196266067678054, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -348,6 +364,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7747196266890602521, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7747196266890602522, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -356,6 +376,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7747196267111029973, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7747196267111029974, guid: a0a7b3567c89c794fb9f729d36a99aa6, type: 3}
       propertyPath: m_SortingOrder
       value: 2

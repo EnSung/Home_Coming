@@ -7,12 +7,18 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
+    [SerializeField] float applySpeed = 5f;
 
     float stemina = 9;
     public Light2D light;
 
     Rigidbody2D rb;
     Vector2 Pre_Pos;
+
+
+    public LayerMask itemMask;
+
+    bool isGrounded;
     void Start()
     {
         IngameManager.Instance.player = this;
@@ -23,17 +29,23 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"),0) * speed * Time.deltaTime;
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"),0) * applySpeed * Time.deltaTime;
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rb.AddForce(new Vector2(0, 300));
+            rb.AddForce(new Vector2(0, 350));
         }
 
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            OnDamaged(1);
-        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        RaycastHit2D ray = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("Ground"));
+
+        if (ray.collider == null)
+            isGrounded = false;
+        else isGrounded = true;
 
     }
 
@@ -44,6 +56,24 @@ public class Player : MonoBehaviour
         light.pointLightOuterRadius = stemina;
     }
 
+    public void OnHeal(float heal)
+    {
+        stemina += heal;
+
+        light.pointLightOuterRadius = stemina;
+        StartCoroutine(SpeedIncreaseCor());
+    }
+
+    IEnumerator SpeedIncreaseCor()
+    {
+        yield return null;
+
+        applySpeed = speed + 2;
+
+        yield return new WaitForSeconds(3);
+
+        applySpeed = speed;
+    }
     IEnumerator TrackCreateCor()
     {
         while (true)
@@ -61,5 +91,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Item"))
+        {
+            collision.GetComponent<Item>().Use();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawLine(transform.position, Vector2.down);
+    }
 }

@@ -25,4 +25,13 @@ public class GhostController : MonoBehaviour
     
         
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            IngameManager.Instance.Gameover();
+        }
+    }
 }

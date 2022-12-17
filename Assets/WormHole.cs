@@ -7,8 +7,10 @@ public class WormHole : MonoBehaviour
     public Vector2 hitBox;
 
     bool isAttack;
-
+    public GameObject hand;
     public LayerMask playerMask;
+
+
     void Start()
     {
         
@@ -21,10 +23,11 @@ public class WormHole : MonoBehaviour
             //АјАн
             Debug.Log("Attack");
             Collider2D col = Physics2D.OverlapBox(transform.position,hitBox,0,playerMask);
-
+            hand.SetActive(true);
             if(col != null)
             {
-
+                IngameManager.Instance.player.OnDamaged(1);
+                Debug.Log("hit!!");
             }
             
             isAttack = true;

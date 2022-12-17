@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6833283794020230339}
   - component: {fileID: 6833283794020230336}
   - component: {fileID: 6833283794020230337}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gournd Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6833283794742439070}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

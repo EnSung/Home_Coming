@@ -40,4 +40,9 @@ public class IngameManager : MonoBehaviour
 
 
     }
+
+    public void Gameover()
+    {
+
+    }
 }
