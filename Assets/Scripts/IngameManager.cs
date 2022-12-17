@@ -22,6 +22,7 @@ public class IngameManager : MonoBehaviour
 
     public AudioClip ghostLaughingClip;
     public AudioClip ghostSkillClip;
+    public AudioClip bgmClip;
     private void Awake()
     {
         if (instance == null)
@@ -31,7 +32,7 @@ public class IngameManager : MonoBehaviour
     }
     void Start()
     {
-
+        SoundManager.Instance.BgSoundPlay(bgmClip);
         StartCoroutine(rhythmCor());
     }
 
@@ -51,6 +52,7 @@ public class IngameManager : MonoBehaviour
         if (isGameover) return;
         gameoverEvent.Invoke();
         isGameover = true;
+        SoundManager.Instance.bgSound.Stop();
         SoundManager.Instance.SFXPlay("ghost Laugh", ghostLaughingClip);
     }
 
@@ -63,7 +65,10 @@ public class IngameManager : MonoBehaviour
         bool i = false;
         while (true)
         {
+
             float randTime = Random.Range(13f, 18f);
+            SoundManager.Instance.bgSound.volume = .5f;
+
             yield return null;
             if (!i)
             {
@@ -72,8 +77,9 @@ public class IngameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(randTime);
 
-            SoundManager.Instance.SFXPlay("skill", ghostSkillClip);
 
+            SoundManager.Instance.SFXPlay("skill", ghostSkillClip);
+            SoundManager.Instance.bgSound.Stop();
             RhythmGame.PlayRhythmGame();
 
 

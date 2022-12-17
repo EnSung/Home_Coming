@@ -17,7 +17,7 @@ public class Note : MonoBehaviour
     {
         float calcTime = (float)hitTime - Time.time;
         transform.position = new Vector2(transform.position.x,
-            (calcTime) * 10 - 4.41f/*판정 UI 포지션*/);
+            (calcTime) * 10 - IngameManager.Instance.RhythmGame.noteSpawnPos[0].position.y/*판정 UI 포지션*/);
 
         if (calcTime < -.5f)//*마지막 판정 바로 다음으로 시간 설정*//*)
         {

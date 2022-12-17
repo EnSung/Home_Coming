@@ -31,9 +31,14 @@ public class RhythmGameSystem : MonoBehaviour
 
     void Update()
     {
-        if (LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0) gameObject.SetActive(false);
+        if (LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0)
+        {
+            gameObject.SetActive(false);
+            SoundManager.Instance.bgSound.Play();
 
+        }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
+
         {
             JudgeNote(NoteType.Left);
         }
