@@ -132,7 +132,7 @@ public class RhythmGameSystem : MonoBehaviour
         double judgeStandardTime = Mathf.Abs((float)note.hitTime - Time.time);
 
         //ÆÇÁ¤
-        if (judgeStandardTime <= 0.1f) // ÆÛÆå
+        if (judgeStandardTime <= 0.3f) // ÆÛÆå
         {
             Debug.Log("Perfect");
             switch (type)
@@ -157,7 +157,7 @@ public class RhythmGameSystem : MonoBehaviour
             SoundManager.Instance.SFXPlay("noteS", noteSound);
             Destroy(note.gameObject);
         }
-        else if (judgeStandardTime <= 0.2f) // ³ë¸Ö
+        else if (judgeStandardTime <= 0.5f) // ³ë¸Ö
         {
             Debug.Log("normal");
             switch (type)
@@ -202,7 +202,7 @@ public class RhythmGameSystem : MonoBehaviour
         int rand = Random.Range(0, 4);
         CreateNote((NoteType)rand, i + .4f);
         rand = Random.Range(0, 4);
-        //CreateNote((NoteType)rand, i + .8f);
+        CreateNote((NoteType)rand, i + .8f);
         rand = Random.Range(0, 4);
         CreateNote((NoteType)rand, i + 1f);
         rand = Random.Range(0, 4);

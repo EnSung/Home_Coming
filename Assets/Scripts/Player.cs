@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     bool isMoving;
 
     public AudioSource audioSrc;
-    public AudioClip footstepSound;
+    public AudioClip jumpClip;
     void Start()
     {
         IngameManager.Instance.player = this;
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(new Vector2(0, 350));
+            SoundManager.Instance.SFXPlay("Jup", jumpClip);
         }
 
 
