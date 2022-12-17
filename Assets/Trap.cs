@@ -27,6 +27,7 @@ public class Trap : MonoBehaviour
             if(col != null)
             {
                 IngameManager.Instance.player.OnDamaged(2);
+                IngameManager.Instance.player.OnTrap();
                 Debug.Log("hit!!");
             }
             

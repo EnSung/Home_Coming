@@ -54,6 +54,10 @@ public class IngameManager : MonoBehaviour
         SoundManager.Instance.SFXPlay("ghost Laugh", ghostLaughingClip);
     }
 
+    public void HomeComing()
+    {
+
+    }
     IEnumerator rhythmCor()
     {
         bool i = false;
@@ -68,6 +72,7 @@ public class IngameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(randTime);
 
+            SoundManager.Instance.SFXPlay("skill", ghostSkillClip);
 
             RhythmGame.PlayRhythmGame();
 

@@ -221,7 +221,7 @@ public class RhythmGameSystem : MonoBehaviour
         rand = Random.Range(0, 4);
         //CreateNote((NoteType)rand, i + 3f);
         rand = Random.Range(0, 4);
-        //CreateNote((NoteType)rand, i + 3.4f);
+        CreateNote((NoteType)rand, i + 3.4f);
         rand = Random.Range(0, 4);
         CreateNote((NoteType)rand, i + 3.6f);
         rand = Random.Range(0, 4);

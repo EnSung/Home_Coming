@@ -9,12 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float applySpeed = 5f;
 
-    float stemina = 9;
+    public float stemina = 10;
     public Light2D light;
 
     Rigidbody2D rb;
     Vector2 Pre_Pos;
 
+    public Animator anim;
+    public SpriteRenderer SR;
 
     public LayerMask itemMask;
 
@@ -28,7 +30,10 @@ public class Player : MonoBehaviour
         IngameManager.Instance.player = this;
         rb = GetComponent<Rigidbody2D>();
         light = GetComponentInChildren<Light2D>();
+        anim = GetComponent<Animator>();
+        SR = GetComponent<SpriteRenderer>();
         StartCoroutine(TrackCreateCor());
+        
     }
 
     void Update()
@@ -36,7 +41,10 @@ public class Player : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         transform.position += new Vector3(h,0) * applySpeed * Time.deltaTime;
 
-
+        anim.SetInteger("h", (int)h);
+        if (h < 0) SR.flipX = true;
+        else if (h > 0) SR.flipX = false;
+        else;
         isMoving = (h != 0 && isGrounded) ? true : false;
 
         if (isMoving)
@@ -67,6 +75,8 @@ public class Player : MonoBehaviour
     public void OnDamaged(float damaged)
     {
         stemina -= damaged;
+        if(stemina < 0)
+            stemina = 0;
 
         light.pointLightOuterRadius = stemina;
     }
@@ -79,6 +89,24 @@ public class Player : MonoBehaviour
         StartCoroutine(SpeedIncreaseCor());
     }
 
+
+    public void OnTrap()
+    {
+        StartCoroutine(TrapCor());
+    }
+
+    IEnumerator TrapCor()
+    {
+        yield return null;
+
+        float sepd = speed - 0.4f;
+
+        applySpeed = sepd;
+
+        yield return new WaitForSeconds(1.3f);
+
+        applySpeed = speed;
+    }
     IEnumerator SpeedIncreaseCor()
     {
         yield return null;
@@ -111,6 +139,10 @@ public class Player : MonoBehaviour
         if(collision.CompareTag("Item"))
         {
             collision.GetComponent<Item>().Use();
+        }
+        else if (collision.CompareTag("DeadLine"))
+        {
+            IngameManager.Instance.Gameover();
         }
     }
 
