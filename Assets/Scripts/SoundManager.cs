@@ -49,7 +49,6 @@ public class SoundManager : MonoBehaviour
         return go;
     }
 
-
     public void BgSoundPlay(AudioClip clip)
     {
         bgSound.clip = clip;

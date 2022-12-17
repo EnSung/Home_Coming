@@ -32,6 +32,7 @@ public class RhythmGameSystem : MonoBehaviour
     void Update()
     {
         if (LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0) gameObject.SetActive(false);
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             JudgeNote(NoteType.Left);
@@ -100,35 +101,38 @@ public class RhythmGameSystem : MonoBehaviour
     /// <param name="type"></param>
     public void JudgeNote(NoteType type)
     {
-        Debug.Log(type.ToString());
 
         //시간 계산
         Note note = null;
         switch (type)
         {
             case NoteType.Left:
-                note = LeftArrowQueue.Peek();
+                note = LeftArrowQueue?.Peek();
                 break;
 
             case NoteType.Up:
-                note = UpArrowQueue.Peek();
+                note = UpArrowQueue?.Peek();
                 break;
             case NoteType.Down:
-                note = DownArrowQueue.Peek();
+                note = DownArrowQueue?.Peek();
                 break;
             case NoteType.Right:
-                note = RightArrowQueue.Peek();
+                note = RightArrowQueue?.Peek();
                 break;
             default:
                 break;
         }
 
-        if (note == null) return;
+        if (note == null)
+        {
+            Debug.Log("note null");
+            return;
 
+        }
         double judgeStandardTime = Mathf.Abs((float)note.hitTime - Time.time);
 
         //판정
-        if (judgeStandardTime <= 0.05f) // 퍼펙
+        if (judgeStandardTime <= 0.1f) // 퍼펙
         {
             Debug.Log("Perfect");
             switch (type)
@@ -153,7 +157,7 @@ public class RhythmGameSystem : MonoBehaviour
             SoundManager.Instance.SFXPlay("noteS", noteSound);
             Destroy(note.gameObject);
         }
-        else if (judgeStandardTime <= 0.1f) // 노멀
+        else if (judgeStandardTime <= 0.2f) // 노멀
         {
             Debug.Log("normal");
             switch (type)

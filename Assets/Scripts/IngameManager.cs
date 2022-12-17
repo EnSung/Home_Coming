@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class IngameManager : MonoBehaviour
 {
@@ -16,7 +17,10 @@ public class IngameManager : MonoBehaviour
 
     public RhythmGameSystem RhythmGame;
 
+    public UnityEvent gameoverEvent;
+    public bool isGameover;
 
+    public AudioClip ghostLaughingClip;
     private void Awake()
     {
         if (instance == null)
@@ -43,6 +47,9 @@ public class IngameManager : MonoBehaviour
 
     public void Gameover()
     {
-
+        if (isGameover) return;
+        gameoverEvent.Invoke();
+        isGameover = true;
+        SoundManager.Instance.SFXPlay("ghost Laugh", ghostLaughingClip);
     }
 }

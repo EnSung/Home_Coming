@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
     public LayerMask itemMask;
 
     bool isGrounded;
+    bool isMoving;
+
+    public AudioSource audioSrc;
+    public AudioClip footstepSound;
     void Start()
     {
         IngameManager.Instance.player = this;
@@ -29,8 +33,18 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"),0) * applySpeed * Time.deltaTime;
+        float h = Input.GetAxisRaw("Horizontal");
+        transform.position += new Vector3(h,0) * applySpeed * Time.deltaTime;
 
+
+        isMoving = (h != 0 && isGrounded) ? true : false;
+
+        if (isMoving)
+        {
+            if(!audioSrc.isPlaying)
+                audioSrc.Play();
+        }
+        else audioSrc.Stop();
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(new Vector2(0, 350));
@@ -99,8 +113,4 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawLine(transform.position, Vector2.down);
-    }
 }

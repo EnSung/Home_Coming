@@ -19,7 +19,7 @@ public class Note : MonoBehaviour
         transform.position = new Vector2(transform.position.x,
             (calcTime) * 10 - 4.41f/*판정 UI 포지션*/);
 
-        if (calcTime < -.17f/*마지막 판정 바로 다음으로 시간 설정*/)
+        /*if (calcTime < -.4f*//*마지막 판정 바로 다음으로 시간 설정*//*)
         {
             switch (type)
             {
@@ -45,7 +45,7 @@ public class Note : MonoBehaviour
 
             Debug.Log("Miss");
             
-        }
+        }*/
     }
 
     public void Initialize(double time)
