@@ -84,6 +84,8 @@ public class Player : MonoBehaviour
     public void OnHeal(float heal)
     {
         stemina += heal;
+        if(stemina > 8)
+            stemina = 8;
 
         light.pointLightOuterRadius = stemina;
         StartCoroutine(SpeedIncreaseCor());

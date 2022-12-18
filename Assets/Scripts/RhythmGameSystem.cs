@@ -17,12 +17,13 @@ public class RhythmGameSystem : MonoBehaviour
     public Queue<Note> RightArrowQueue = new Queue<Note>(); // юс╫ц
 
     public Transform[] noteSpawnPos; // [L, R, U, D]
-
+    public Vector3 startPos;
     public GameObject notePrefab;
 
 
     public AudioClip[] SingClip;
     public AudioClip noteSound;
+    public AudioClip missSound;
     void Start()
     {
 
@@ -31,6 +32,9 @@ public class RhythmGameSystem : MonoBehaviour
 
     void Update()
     {
+
+        transform.position = new Vector2(IngameManager.Instance.player.transform.position.x, transform.position.y);
+
         if (LeftArrowQueue.Count == 0 && RightArrowQueue.Count == 0 && UpArrowQueue.Count == 0 && DownArrowQueue.Count == 0)
         {
             gameObject.SetActive(false);

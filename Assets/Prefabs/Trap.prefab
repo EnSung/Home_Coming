@@ -214,3 +214,4 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 8
+  trapCLip: {fileID: 8300000, guid: 8dcc62e412bff934a863ad4d6905a7e4, type: 3}

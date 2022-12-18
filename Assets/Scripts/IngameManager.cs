@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class IngameManager : MonoBehaviour
 {
@@ -18,11 +19,14 @@ public class IngameManager : MonoBehaviour
     public RhythmGameSystem RhythmGame;
 
     public UnityEvent gameoverEvent;
-    public bool isGameover;
+    public UnityEvent clearEvent;
+    public bool isEnd;
 
     public AudioClip ghostLaughingClip;
     public AudioClip ghostSkillClip;
     public AudioClip bgmClip;
+    public AudioClip clearClip;
+
     private void Awake()
     {
         if (instance == null)
@@ -49,16 +53,19 @@ public class IngameManager : MonoBehaviour
 
     public void Gameover()
     {
-        if (isGameover) return;
+        if (isEnd) return;
         gameoverEvent.Invoke();
-        isGameover = true;
+        isEnd = true;
         SoundManager.Instance.bgSound.Stop();
         SoundManager.Instance.SFXPlay("ghost Laugh", ghostLaughingClip);
     }
 
     public void HomeComing()
     {
-
+        if (isEnd == true) return;
+        clearEvent.Invoke();
+        SoundManager.Instance.BgSoundPlay(clearClip);
+        isEnd = true;
     }
     IEnumerator rhythmCor()
     {
@@ -86,4 +93,6 @@ public class IngameManager : MonoBehaviour
 
         }
     }
+
+
 }

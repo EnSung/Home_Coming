@@ -15,6 +15,7 @@ public class GhostController : MonoBehaviour
 
     void Update()
     {
+        if (IngameManager.Instance.isEnd) return;
         if (IngameManager.Instance.player.stemina <= 0) speed = 5.5f;
         else speed = 4.8f;
         if (IngameManager.Instance.playerTrackPos.Count == 0) return;

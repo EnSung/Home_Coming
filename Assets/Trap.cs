@@ -10,6 +10,7 @@ public class Trap : MonoBehaviour
     public Sprite active;
     public LayerMask playerMask;
 
+    public AudioClip trapCLip;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class Trap : MonoBehaviour
             {
                 IngameManager.Instance.player.OnDamaged(2);
                 IngameManager.Instance.player.OnTrap();
+                SoundManager.Instance.SFXPlay("trap", trapCLip);
                 Debug.Log("hit!!");
             }
             
